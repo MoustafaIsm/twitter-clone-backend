@@ -14,7 +14,11 @@
 
     $query = $conn->prepare('INSERT INTO `tweets`(`tweet_text`, `tweet_image_link`, `date_time_of_creation`, `user_id`) VALUES (?, ?, ?, ?)');
     $query->bind_param("ssss", $tweetText, $tweetImageText, $dateOfCreation, $userId);
-    $query->execute();
+    $result = $query->execute();
+
+    $response["result"] = $result;
+
+    echo json_encode($response);
 
 
     function convertBackToImage($base64Image, $user) {
