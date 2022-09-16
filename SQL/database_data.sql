@@ -1,20 +1,20 @@
 -- Users table
-INSERT INTO `users` (`username`, `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
+INSERT INTO `users` (`username`,`email` , `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
 VALUES (
     'jaafarHawila123', 'Jaafar Hawila', '12341234', '2000-1-1', '2022-3-3', 'NA', 'NA', 'NA', 'NA', 'NA'
 );
 
-INSERT INTO `users` (`username`, `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
+INSERT INTO `users` (`username`,`email` , `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
 VALUES (
     'moustafaism123', 'Moustafa Ismail', '12341234', '2001-1-1', '2022-5-3', 'NA', 'NA', 'NA', 'NA', 'NA'
 );
 
-INSERT INTO `users` (`username`, `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
+INSERT INTO `users` (`username`,`email` , `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
 VALUES (
     'joe123', 'Joe', '12341234', '2004-1-1', '2021-3-3', 'NA', 'NA', 'NA', 'NA', 'NA'
 );
 
-INSERT INTO `users` (`username`, `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`) 
+INSERT INTO `users` (`username`,`email` , `name`, `password`, `date_of_birth`, `date_of_registration`, `bio`, `location`, `profile_picture_link`, `banner_picture_link`, `website`)  
 VALUES (
     'simon123', 'Simon', '12341234', '2000-1-1', '2022-3-3', 'NA', 'NA', 'NA', 'NA', 'NA'
 );
@@ -64,4 +64,6 @@ VALUES (1, 4);
 
 INSERT INTO `blocked`(`user_id`, `blocked_user_id`) 
 VALUES (2, 3);
+
+
 
