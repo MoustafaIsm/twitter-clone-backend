@@ -3,16 +3,18 @@
 
     include("./connection.php");
 
-    // $tweetText = $_POST["tweetText"];
+    $tweetText = $_POST["tweetText"];
     $tweetImageText = $_POST["tweetImageText"];
-    // $dateOfCreation = $_POST["dateOfCreation"];
+    $dateOfCreation = $_POST["dateOfCreation"];
     $userId = $_POST["userId"];
 
     if ($tweetImageText != "NA") {
-        convertBackToImage($tweetImageText, $userId);
+        $tweetImageText = convertBackToImage($tweetImageText, $userId);
     }
 
-    
+    $query = $conn->prepare('INSERT INTO `tweets`(`tweet_text`, `tweet_image_link`, `date_time_of_creation`, `user_id`) VALUES (?, ?, ?, ?)');
+    $query->bind_param("ssss", $tweetText, $tweetImageText, $dateOfCreation, $userId);
+    $query->execute();
 
 
     function convertBackToImage($base64Image, $user) {
@@ -36,7 +38,7 @@
 
         // Bind the decoded data to an image
         $success = file_put_contents($imageName, $data);
-        echo $imageName;
+        return $imageName;
     }
     
     function getBase64String($image) {
