@@ -4,22 +4,40 @@
     include("./connection.php");
 
     $userId = $_POST["userId"];
-    // $name = $_POST["name"];
-    // $bio = $_POST["bio"];
-    // $location = $_POST["location"];
+    $name = $_POST["name"];
+    $bio = $_POST["bio"];
+    $location = $_POST["location"];
     if (isset($_POST["profilePicture"]))
         $profilePicture = $_POST["profilePicture"];
     if (isset($_POST["bannerPicture"]))
         $bannerPicture = $_POST["bannerPicture"];
-    // $website = $_POST["website"];
+    $website = $_POST["website"];
 
-    if (isset($_POST["profilePicture"])) {
+    if (isset($_POST["profilePicture"]) && !isset($_POST["bannerPicture"])) {
         $profilePicture = convertBackToImage($profilePicture, $userId, "profile");
+
+        $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`profile_picture_link`=?,`website`=? WHERE `id`=?");
+        $query->bind_param("ssssi", $name, $bio, $location, $profilePicture, $website, $userId);
+
+    } elseif (!isset($_POST["profilePicture"]) && isset($_POST["bannerPicture"])) {
+        $bannerPicture = convertBackToImage($bannerPicture, $userId, "banner");
+
+        $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`banner_picture_link`=?,`website`=? WHERE `id`=?");
+        $query->bind_param("ssssi", $name, $bio, $location, $bannerPicture, $website, $userId);
+
+    } elseif (isset($_POST["profilePicture"]) && isset($_POST["bannerPicture"])) {
+        $profilePicture = convertBackToImage($profilePicture, $userId, "profile");
+        $bannerPicture = convertBackToImage($bannerPicture, $userId, "banner");
+
+        $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`profile_picture_link`=?,`banner_picture_link`=?,`website`=? WHERE `id`=?");
+        $query->bind_param("sssssi", $name, $bio, $location, $profilePicture, $bannerPicture, $website, $userId);
+
+    } else {
+        $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`website`=? WHERE `id`=?");
+        $query->bind_param("sssi", $name, $bio, $location, $website, $userId);
     }
 
-    if (isset($_POST["bannerPicture"])) {
-        $bannerPicture = convertBackToImage($bannerPicture, $userId, "banner");
-    }
+
 
     function convertBackToImage($base64Image, $user, $type) {
         // PHP permission and to create the directory if it doesnt exist
