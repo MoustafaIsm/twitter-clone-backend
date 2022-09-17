@@ -6,4 +6,14 @@
     $tweetId = $_GET["tweetId"];
 
     $query = $conn->prepare("SELECT count(`user_id`) FROM `likes` WHERE tweet_id=?");
+    $query->bind_param("i", $tweetId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    $response = [];
+    $response["likes-count"] = $result->fetch_assoc()["count(`user_id`)"];
+
+    echo json_encode($response);
+
 ?>
