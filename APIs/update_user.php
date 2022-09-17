@@ -17,27 +17,31 @@
         $profilePicture = convertBackToImage($profilePicture, $userId, "profile");
 
         $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`profile_picture_link`=?,`website`=? WHERE `id`=?");
-        $query->bind_param("ssssi", $name, $bio, $location, $profilePicture, $website, $userId);
+        $query->bind_param("sssssi", $name, $bio, $location, $profilePicture, $website, $userId);
 
     } elseif (!isset($_POST["profilePicture"]) && isset($_POST["bannerPicture"])) {
         $bannerPicture = convertBackToImage($bannerPicture, $userId, "banner");
 
         $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`banner_picture_link`=?,`website`=? WHERE `id`=?");
-        $query->bind_param("ssssi", $name, $bio, $location, $bannerPicture, $website, $userId);
+        $query->bind_param("sssssi", $name, $bio, $location, $bannerPicture, $website, $userId);
 
     } elseif (isset($_POST["profilePicture"]) && isset($_POST["bannerPicture"])) {
         $profilePicture = convertBackToImage($profilePicture, $userId, "profile");
         $bannerPicture = convertBackToImage($bannerPicture, $userId, "banner");
 
         $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`profile_picture_link`=?,`banner_picture_link`=?,`website`=? WHERE `id`=?");
-        $query->bind_param("sssssi", $name, $bio, $location, $profilePicture, $bannerPicture, $website, $userId);
+        $query->bind_param("ssssssi", $name, $bio, $location, $profilePicture, $bannerPicture, $website, $userId);
 
     } else {
         $query = $conn->prepare("UPDATE `users` SET `name`=?,`bio`=?,`location`=?,`website`=? WHERE `id`=?");
-        $query->bind_param("sssi", $name, $bio, $location, $website, $userId);
+        $query->bind_param("ssssi", $name, $bio, $location, $website, $userId);
     }
 
+    $result = $query->execute();
 
+    $response["result"] = $result;
+
+    echo json_encode($response);
 
     function convertBackToImage($base64Image, $user, $type) {
         // PHP permission and to create the directory if it doesnt exist
@@ -72,6 +76,5 @@
         $extra2 = explode(";", $extra1)[0];
         return explode("/", $extra2)[1];
     }
-
 
 ?>
