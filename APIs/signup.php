@@ -33,7 +33,7 @@ else {
     $response = [];
     $response["valid"] = true; 
     echo json_encode($response); 
-    
+
     $regex = '/\s/';
     $username = preg_replace($regex, '', $name);
     $usernamePermenant = $username; 
@@ -57,7 +57,4 @@ else {
     $query->bind_param("sssssssssss",$username, $email, $name, $password, $birth, $date_of_registration, $bio, $location, $profile_picture_link, $banner_picture_link, $website);
     $query->execute(); 
 }
-
-
-
 ?>
