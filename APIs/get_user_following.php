@@ -18,5 +18,7 @@
         $response["following"][] = $row;
     }
 
+    $response["count"] = mysqli_num_rows($result);
+
     echo json_encode($response);
 ?>

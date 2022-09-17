@@ -18,6 +18,7 @@
     while($row = $result->fetch_assoc()) {
         $response["followers"][] = $row;
     }
+    $response["count"] = mysqli_num_rows($result);
 
     echo json_encode($response);
 ?>
