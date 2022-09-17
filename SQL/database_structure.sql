@@ -82,11 +82,11 @@ CREATE TABLE IF NOT EXISTS `twitterdb`.`blocked` (
 -- Table `twitterdb`.`followers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `twitterdb`.`following` (
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `following_user_id` INT NOT NULL,
-  PRIMARY KEY (`users_id`, `following_user_id`),
+  PRIMARY KEY (`user_id`, `following_user_id`),
   CONSTRAINT `fk_users_has_users_users3`
-    FOREIGN KEY (`users_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `twitterdb`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
