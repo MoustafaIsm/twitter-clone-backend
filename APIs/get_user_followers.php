@@ -5,7 +5,7 @@
 
     $userId = $_GET["userId"];
 
-    $query = $conn->prepare("SELECT `u`.`id`, `u`.`username`, `u`.`name`
+    $query = $conn->prepare("SELECT `u`.`id`, `u`.`username`, `u`.`name`, `u`.`profile_picture_link`
     FROM `following` AS f, `users` AS u
     WHERE `f`.`user_id`=`u`.`id`AND `f`.`following_user_id`=?");
 

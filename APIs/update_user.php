@@ -64,7 +64,8 @@
 
         // Bind the decoded data to an image
         $success = file_put_contents($imageName, $data);
-        return $imageName;
+        $url = str_replace("P:/Programs/XAMPP/htdocs", "http://localhost", $imageName)
+        return $url;
     }
 
     function getBase64String($image) {
