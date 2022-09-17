@@ -19,13 +19,27 @@ $profile_picture_link = "NA";
 $banner_picture_link = "NA";
 $website = "NA";
 
-$regex = '/\s/';
-$username = preg_replace($regex, '', $name);
-$usernamePermenant = $username; 
-$username_counter = 1;
-$repeat = true;
+$query = $mysqli->prepare("SELECT email FROM users WHERE email=?");
+$query->bind_param("s", $email);
+$query->execute();
+$result = $query->get_result();
+if(mysqli_num_rows($result)>0) {
+    $response = [];
+    $response["valid"] = false; 
+    echo json_encode($response); 
+}
 
-
+else {
+    $response = [];
+    $response["valid"] = true; 
+    echo json_encode($response); 
+    
+    $regex = '/\s/';
+    $username = preg_replace($regex, '', $name);
+    $usernamePermenant = $username; 
+    $username_counter = 1;
+    $repeat = true;
+    
     $query = $mysqli->prepare("SELECT username FROM users WHERE username=?");
     $query-> bind_param("s", $username);
     $query->execute();
@@ -38,14 +52,12 @@ $repeat = true;
         $query->execute();
         $result = $query->get_result();
     }
+    
+    $query = $mysqli->prepare("INSERT INTO users(username ,email, name, password, date_of_birth, date_of_registration,bio, location, profile_picture_link,banner_picture_link,website) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->bind_param("sssssssssss",$username, $email, $name, $password, $birth, $date_of_registration, $bio, $location, $profile_picture_link, $banner_picture_link, $website);
+    $query->execute(); 
+}
 
-$query = $mysqli->prepare("INSERT INTO users(username ,email, name, password, date_of_birth, date_of_registration,bio, location, profile_picture_link,banner_picture_link,website) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$query->bind_param("sssssssssss",$username, $email, $name, $password, $birth, $date_of_registration, $bio, $location, $profile_picture_link, $banner_picture_link, $website);
-$query->execute(); 
 
-$response = [];
-$response["success"] = true; 
-
-echo json_encode($response); 
 
 ?>
