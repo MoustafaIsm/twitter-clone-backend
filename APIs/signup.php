@@ -38,20 +38,14 @@ $repeat = true;
         $query->execute();
         $result = $query->get_result();
     }
-    
-
-    
-    
-
-
 
 $query = $mysqli->prepare("INSERT INTO users(username ,email, name, password, date_of_birth, date_of_registration,bio, location, profile_picture_link,banner_picture_link,website) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->bind_param("sssssssssss",$username, $email, $name, $password, $birth, $date_of_registration, $bio, $location, $profile_picture_link, $banner_picture_link, $website);
 $query->execute(); 
 
-/* $response = [];
-$response["success"] = true; */
+$response = [];
+$response["success"] = true; 
 
-/* echo json_encode($response); */
+echo json_encode($response); 
 
 ?>

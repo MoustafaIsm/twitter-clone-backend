@@ -8,8 +8,17 @@ include("connection.php");
 $email = $_POST["email"];
 $password = hash("sha256",$_POST["password"]);
 
-$query = $mysqli->prepare("SELECT email, password FROM users WHERE email=? AND password=?");
+$query = $mysqli->prepare("SELECT * FROM users WHERE email=? AND password=?");
 $query-> bind_param("ss", $email, $password);
 $query->execute();
 $result = $query->get_result();
+
+$response = [];
+
+while($a = $result->fetch_assoc()){
+    $response[] = $a;
+}
+
+$json = json_encode($response);
+echo $json; 
 ?>
