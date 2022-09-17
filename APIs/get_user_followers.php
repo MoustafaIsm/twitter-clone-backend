@@ -9,4 +9,15 @@
     FROM `following` AS f, `users` AS u
     WHERE `f`.`user_id`=`u`.`id`AND `f`.`following_user_id`=?");
 
+    $query->bind_param("i", $userId);
+    $query->execute();
+    $result = $query->get_result();
+
+    $response = [];
+
+    while($row = $result->fetch_assoc()) {
+        $response["followers"][] = $row;
+    }
+
+    echo json_encode($response);
 ?>
