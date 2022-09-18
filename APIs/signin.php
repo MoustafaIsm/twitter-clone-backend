@@ -9,15 +9,18 @@ $email = $_POST["email"];
 $password = hash("sha256",$_POST["password"]);
 $response = [];
 
+// Check if the input email exists in the database
 $query = $mysqli->prepare("SELECT email FROM users WHERE email=?");
 $query-> bind_param("s", $email);
 $query->execute();
 $result = $query->get_result();
+// If the email does'nt exist
 if(mysqli_num_rows($result)==0) {
     $response["email"] = false;  
 }
+// If the email exists
 else {
-    
+    // If password matches the email, return all the user's data
     $query = $mysqli->prepare("SELECT email, password FROM users WHERE email=? AND password=?");
     $query-> bind_param("ss", $email, $password);
     $query->execute();
@@ -32,6 +35,7 @@ else {
             $response[] = $a;
         }
     }
+    // If password does'nt match
     else {
         $response["email"] = true;
         $response["password"] = false;
