@@ -20,7 +20,7 @@ $banner_picture_link = "NA";
 $website = "NA";
 
 // Check if input email already exists in the database
-$query = $mysqli->prepare("SELECT email FROM users WHERE email=?");
+$query = $conn->prepare("SELECT email FROM users WHERE email=?");
 $query->bind_param("s", $email);
 $query->execute();
 $result = $query->get_result();
@@ -42,21 +42,21 @@ else {
     $username_counter = 1;
     $repeat = true;
     // Check if the username exists in the database, if yes, add a number beside it and keep incrementing it till you reach a unique value
-    $query = $mysqli->prepare("SELECT username FROM users WHERE username=?");
+    $query = $conn->prepare("SELECT username FROM users WHERE username=?");
     $query-> bind_param("s", $username);
     $query->execute();
     $result = $query->get_result();
     while(mysqli_num_rows($result)>0) {
         $username=$usernamePermenant.$username_counter;
         $username_counter++; 
-        $query = $mysqli ->prepare("SELECT username FROM users WHERE username=?");
+        $query = $conn ->prepare("SELECT username FROM users WHERE username=?");
         $query->bind_param("s", $username);
         $query->execute();
         $result = $query->get_result();
     }
     
     // Insert all data into the users table in the database
-    $query = $mysqli->prepare("INSERT INTO users(username ,email, name, password, date_of_birth, date_of_registration,bio, location, profile_picture_link,banner_picture_link,website) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query = $conn->prepare("INSERT INTO users(username ,email, name, password, date_of_birth, date_of_registration,bio, location, profile_picture_link,banner_picture_link,website) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->bind_param("sssssssssss",$username, $email, $name, $password, $birth, $date_of_registration, $bio, $location, $profile_picture_link, $banner_picture_link, $website);
     $query->execute(); 
 }
