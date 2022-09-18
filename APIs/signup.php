@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://127.0.0.1:5500 ');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 
 include("connection.php"); 
