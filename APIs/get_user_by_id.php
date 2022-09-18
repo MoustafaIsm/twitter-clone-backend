@@ -5,7 +5,7 @@
 
     $userId = $_GET["userId"];
 
-    $query = $conn->prepare("SELECT `u`.`id`, `u`.`username`, `u`.`name`, `u`.`profile_picture_link` FROM `users` AS u, `blocked` AS b WHERE `u`.`id`=`b`.`blocked_user_id` AND `b`.`user_id`=?");
+    $query = $conn->prepare("SELECT * FROM users WHERE id=?");
     $query->bind_param("i", $userId);
     $query->execute();
     $result = $query->get_result();
@@ -13,7 +13,7 @@
     $response = [];
 
     while($row = $result->fetch_assoc()) {
-        $response["blocked_users"][] = $row;
+        $response["user"][] = $row;
     }
 
     echo json_encode($response);

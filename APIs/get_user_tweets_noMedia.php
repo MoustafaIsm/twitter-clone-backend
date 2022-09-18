@@ -6,7 +6,7 @@
 
     $userId = $_GET["userId"];
 
-    $query = $conn->prepare("SELECT `id`,`tweet_text`, `date_time_of_creation` FROM `tweets` WHERE `user_id`=? AND `tweet_image_link`= 'NA'");
+    $query = $conn->prepare("SELECT `id`,`tweet_text`, `date_time_of_creation` FROM `tweets` WHERE `user_id`=? AND `tweet_image_link`= 'NA' ORDER BY `date_time_of_creation` DESC");
     $query->bind_param("i", $userId);
     $query->execute();
     $result = $query->get_result();

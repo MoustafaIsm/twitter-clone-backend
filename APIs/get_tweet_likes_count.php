@@ -12,7 +12,7 @@
     $result = $query->get_result();
 
     $response = [];
-    $response["likes-count"] = $result->fetch_assoc()["count(`user_id`)"];
+    $response["likes_count"] = $result->fetch_assoc()["count(`user_id`)"];
 
     echo json_encode($response);
 
